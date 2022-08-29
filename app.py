@@ -8,7 +8,7 @@ app  = Flask(__name__)
 
 @app.route('/signUp')
 def signUp():
-    return render_template('signUp.html')
+    return render_template('signup.html')
 
 @app.route('/login')
 def login():
@@ -21,15 +21,15 @@ def home():
 
 @app.route('/shop-1')
 def shop1():
-    return render_template('shop1.html')
+    return render_template('new-grocery-list.html')
 
 @app.route('/shop-2')
 def shop2():
-    return render_template('shop2.html')
+    return render_template('grocery-checklist.html')
 
 @app.route('/delete')
 def delete():
-    return render_template('delete.html')
+    return render_template('grocery-wasted-list.html')
 
 @app.route('/dash')
 def dash():

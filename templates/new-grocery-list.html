@@ -4,28 +4,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/signup.css">
-    <title>Sign up</title>
+    <link rel="stylesheet" href="styles/new-grocery-list.css">
+    <title>New grocery list</title>
 </head>
 <body>
     <div class="backgroundCircle"></div>
     <header>
         <img src="icons/back.png" id="back">
-        <h1 id="pageTitle">Sign up</h1>
+        <h1 id="pageTitle">New grocery list</h1>
     </header>
     <div class="content">
         <div class="form">
             <form action="post">
                 <div class="item">
-                    <label for="type">Username</label>
-                    <input type="text" name="username">
+                    <label for="type">Type</label>
+                    <input type="text" name="type">
                 </div>
                 <div class="item">
-                    <label for="name">Password</label>
-                    <input type="password" name="password">
+                    <label for="name">Name</label>
+                    <input type="text" name="name">
                 </div>
                 <div class="item">
-                    <input type="submit" value="Sign up">
+                    <label for="members">Members</label>
+                    <select name="members" id="members">
+                        <option value="1">1</option>
+                    </select>
+                </div>
+                <div class="item">
+                    <label for="quantity">Quantity</label>
+                    <select name="quantity" id="quantity">
+                    <option value="0">0</option>
+                    </select>
+                </div>
+                <div class="item">
+                    <input type="submit" value="Submit">
                 </div>
             </form>
         </div>

@@ -4,16 +4,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <title>Home</title>
 </head>
 <body>
-    Home
-    <a href="/login">login</a>
-    <a href="/">home</a>
-    <a href="/shop-1">shop 1</a>
-    <a href="/shop-2">shop 2</a>
-    <a href="/signUp">sign up</a>
-    <a href="/delete">delete</a>
-    <a href="/dash">dash</a>
+    <div class="backgroundCircle"></div>
+    <header>
+        <h1 id="pageTitle">HOME</h1>
+    </header>
+    <div class="content">
+        <div id="watchListContainer">
+            <h2 id="heading">Watch list</h2>
+            <ul class="watchList">
+                <ul class="item">
+                    <li>cat</li>
+                    <li>-</li>
+                    <li>hello</li>
+                </ul>
+                <ul class="item">
+                    <li>cat</li>
+                    <li>-</li>
+                    <li>hello</li>
+                </ul>
+                <ul class="item">
+                    <li>cat</li>
+                    <li>-</li>
+                    <li>hello</li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+    <footer>
+        <nav id="bottomNav">
+            <img src="{{ url_for('static', filename='img/home.png') }}" class="icon" id="homeIcon">
+            <img src=" {{ url_for('static', filename='img/cart.png') }}" class="icon" id="cartIcon">
+            <img src="{{ url_for('static', filename='img/add.png') }}" class="icon" id="addIcon">
+            <img src="{{ url_for('static', filename='img/delete.png') }}" class="icon" id="deleteIcon">
+            <img src="{{ url_for('static', filename='img/graph.png') }}" class="icon" id="graphIcon">
+        </nav>
+    </footer>
 </body>
 </html>
