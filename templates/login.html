@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <title>Log in</title>
+</head>
+<body>
+    <div class="backgroundCircle"></div>
+    <header>
+        <img src="{{ url_for('static', filename='img/back.png') }}" id="back">
+        <h1 id="pageTitle">Welcome!</h1>
+        <h1 id="pageTitle">Log in</h1>
+    </header>
+    <div class="content">
+        <div class="form">
+            <form method="POST" action="" style="padding: 1em;">
+                {{ form.hidden_tag() }}
+                <div class="item">
+                    <label for="type" style="padding-right: 1em;">Username </label>
+                    {{ form.username}}
+                </div>
+                
+                <div class="item">
+                    <label for="name" style="padding-right: 1em;">Password</label>
+
+                    {{ form.password}}
+                </div>
+                
+                
+                
+                <div class="item">{{ form.submit }}</div>
+ 
+
+            </form>
+            <p style="margin-left:3em"> New Hear? <a href="signup">Sign Up</a> here!</p>
+        </div>
+    </div>
+</body>
+</html>

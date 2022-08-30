@@ -4,40 +4,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/signup.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
     <title>Sign up</title>
 </head>
 <body>
     <div class="backgroundCircle"></div>
     <header>
-        <img src="icons/back.png" id="back">
+        <img src="{{ url_for('static', filename='img/back.png') }}" id="back">
         <h1 id="pageTitle">Sign up</h1>
     </header>
     <div class="content">
-        <div class="form">
-            <form action="post">
+        <!-- <div class="form">
+            <form action="" method="post">
                 <div class="item">
                     <label for="type">Username</label>
                     <input type="text" name="username">
                 </div>
                 <div class="item">
-                    <label for="name">Password</label>
                     <input type="password" name="password">
                 </div>
                 <div class="item">
                     <input type="submit" value="Sign up">
+                </div> -->
+                <div class="form">
+                    <form method="POST" action="" style="padding: 1em;">
+                        {{ form.hidden_tag() }}
+                        <div class="item">
+                            <label for="type" style="padding-right: 1em;">Username </label>
+                            {{ form.username}}
+                        </div>
+                        
+                        <div class="item">
+                            <label for="name" style="padding-right: 1em;">Password</label>
+
+                            {{ form.password }}
+                        </div>
+                        
+                        
+                        <div class="item">{{ form.submit }}</div>
+                    </form>
                 </div>
             </form>
         </div>
     </div>
-    <footer>    
-        <nav id="bottomNav">
-            <img src="icons/home.png" class="icon" id="homeIcon">
-            <img src="icons/cart.png" class="icon" id="cartIcon">
-            <img src="icons/add.png" class="icon" id="addIcon">
-            <img src="icons/delete.png" class="icon" id="deleteIcon">
-            <img src="icons/graph.png" class="icon" id="graphIcon">
-        </nav>
-    </footer>
+
 </body>
 </html>
