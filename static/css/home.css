@@ -36,10 +36,10 @@
     display: flex;
     flex-direction:row;
     justify-content: space-evenly;
-    width: 60vw;
+    width: 80vw;
     height:11vh;
     top:83vh;
-    left: 20vw;
+    left: 11vw;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     border-radius: 11vh;
 }

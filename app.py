@@ -2,6 +2,8 @@
 from enum import unique
 from math import frexp
 import os
+import re
+from urllib.response import addclosehook
 from flask import request, Flask, jsonify,render_template, session,redirect,url_for
 
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
@@ -52,11 +54,56 @@ db =SQLAlchemy(app)
 
 
 
-
+ 
 class Users(db.Model, UserMixin):
+   # __tablename__ = 'users'
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30),unique=True, nullable=False)
     password = db.Column(db.String(30), nullable=False)
+
+    aglist = db.relationship('AllGrosseryLists', backref='aglist')
+    fwlist = db.relationship('FoodWastedList', backref='fwlist')
+  #  glist1 = db.relationship('GrosseryList', backref='glist1')
+
+
+
+
+
+
+class AllGrosseryLists(db.Model):
+    __tablename__ = 'allgrosserylists'
+    agid = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), nullable=False)
+    date = db.Column(db.String(300), nullable=False) 
+    alllist_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    glist = db.relationship('GrosseryList', backref='glist')
+ 
+
+class GrosseryList(db.Model):
+    __tablename__ = 'grosserylist'
+    gid = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.String(30), nullable=False)
+    name = db.Column(db.String(30), nullable=False)
+    expirydate = db.Column(db.String(300), nullable=False)  
+    members = db.Column(db.Integer)
+    quantity = db.Column(db.Integer)
+    #creator_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    agid = db.Column(db.Integer, db.ForeignKey('allgrosserylists.agid'))
+
+
+
+
+
+class FoodWastedList(db.Model):
+    __tablename__ = 'foodwastedlist'
+
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.String(30), nullable=False)
+    name = db.Column(db.String(30), nullable=False)
+    quantity = db.Column(db.Integer)
+    fw_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    
 
 
 
@@ -81,6 +128,9 @@ class LoginForm(FlaskForm):
     username = StringField('username', validators=[InputRequired('username is required'),Length(min=8,max=20), ])
     password = PasswordField('password', validators= [InputRequired(), Length(min=8, max=81, message=('8 letters!')) ])
     submit = SubmitField("Login")
+
+
+
     
 
 
@@ -127,15 +177,34 @@ def login():
     return render_template('login.html',form=form)
 
 
-@app.route('/newlist')
+@app.route('/newlist', methods = ["GET",'POST'])
 @login_required
 def shop1():
+    if request.method == 'POST':
+        cid = current_user.id
+        addlist = GrosseryList(type=request.form['type'],name=request.form['name'],expirydate=request.form.get('exdate'),members=int(request.form['members']),quantity=int(request.form['quantity']),list_id=cid )
+        db.session.add(addlist)
+        db.session.commit()
+        return redirect(url_for('gclist'))
     return render_template('new-grocery-list.html')
+
+
+@app.route('/newlist', methods = ["GET",'POST'])
+@login_required
+def newlist():
+  
+    return render_template('new-list.html')
 
 @app.route('/glist')
 @login_required
-def shop2():
+def glist():
+    return render_template('grocery-list.html')
+
+@app.route('/gclist')
+@login_required
+def gclist():
     return render_template('grocery-checklist.html')
+
 
 @app.route('/wasted')
 @login_required
