@@ -19,21 +19,21 @@ def login():
 def home():
     return render_template('home.html')
 
-@app.route('/shop-1')
+@app.route('/newlist')
 def shop1():
     return render_template('new-grocery-list.html')
 
-@app.route('/shop-2')
+@app.route('/glist')
 def shop2():
     return render_template('grocery-checklist.html')
 
-@app.route('/delete')
+@app.route('/wasted')
 def delete():
     return render_template('grocery-wasted-list.html')
 
 @app.route('/dash')
 def dash():
-    return render_template('dash.html')
+    return render_template('dashboard.html')
 
 
 if __name__=='__main__':

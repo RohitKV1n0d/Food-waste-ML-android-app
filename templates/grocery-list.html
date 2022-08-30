@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/grocery-list.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/grocery-list.css') }}">
     <title>Grocery list</title>
 </head>
 <body>
     <div class="backgroundCircle"></div>
     <header>
-        <img src="icons/back.png" id="back">
+        <img src="{{ url_for('static', filename='img/back.png') }}" id="back">
         <h1 id="pageTitle">Grocery list</h1>
     </header>
     <div class="content">
@@ -47,11 +47,11 @@
     </div>
     <footer>
         <nav id="bottomNav">
-            <img src="icons/home.png" class="icon" id="homeIcon">
-            <img src="icons/cart.png" class="icon" id="cartIcon">
-            <img src="icons/add.png" class="icon" id="addIcon">
-            <img src="icons/delete.png" class="icon" id="deleteIcon">
-            <img src="icons/graph.png" class="icon" id="graphIcon">
+            <a href="home"><img src="{{ url_for('static', filename='img/home.png') }}" class="icon" id="homeIcon" style="width:30px;height:30px;" ></a>      
+            <a href="glist"><img src="{{ url_for('static', filename='img/cart.png') }}" class="icon" id="cartIcon"  style="width:30px;height:30px;"></a>
+            <a href="newlist"><img src="{{ url_for('static', filename='img/add.png') }}" class="icon" id="addIcon"  style="width:30px;height:30px;"></a>
+            <a href="wasted"><img src="{{ url_for('static', filename='img/delete.png') }}" class="icon" id="deleteIcon"  style="width:30px;height:30px;"></a>
+            <a href="dash"><img src="{{ url_for('static', filename='img/graph.png') }}" class="icon" id="graphIcon"  style="width:30px;height:30px;"></a>
         </nav>
     </footer>
 </body>

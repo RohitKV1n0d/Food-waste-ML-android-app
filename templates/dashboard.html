@@ -4,44 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/grocery-checklist.css') }}" >
-    <title>Grocery checklist</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <title>Dashboad</title>
 </head>
 <body>
     <div class="backgroundCircle"></div>
     <header>
-        <img src="{{ url_for('static', filename='img/back.png') }}" id="back">
-        <h1 id="pageTitle">Grocery checklist</h1>
+        <h1 id="pageTitle">Dashboard</h1>
     </header>
-    <div class="content">
-        <div id="checkListContainer">
-            <ol class="checklist">
-                <ul class="heading">
-                    <li>#</li>
-                    <li>Item</li>
-                    <li>Quantity</li>
+    <!-- <div class="content">
+        <div id="watchListContainer">
+            <h2 id="heading">Watch list</h2>
+            <ul class="watchList">
+                <ul class="item">
+                    <li>cat</li>
+                    <li>-</li>
+                    <li>hello</li>
                 </ul>
                 <ul class="item">
                     <li>cat</li>
                     <li>-</li>
                     <li>hello</li>
-                    <li><input type="checkbox" name="" id=""></li>
                 </ul>
                 <ul class="item">
                     <li>cat</li>
                     <li>-</li>
                     <li>hello</li>
-                    <li><input type="checkbox" name="" id=""></li>
                 </ul>
-                <ul class="item">
-                    <li>cat</li>
-                    <li>-</li>
-                    <li>hello</li>
-                    <li><input type="checkbox" name="" id=""></li>
-                </ul>
-            </ol>
+            </ul>
         </div>
-    </div>
+    </div> -->
     <footer>
         <nav id="bottomNav">
             <a href="home"><img src="{{ url_for('static', filename='img/home.png') }}" class="icon" id="homeIcon" style="width:30px;height:30px;" ></a>      
