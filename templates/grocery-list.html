@@ -10,7 +10,7 @@
 <body>
     <div class="backgroundCircle"></div>
     <header>
-        <img src="{{ url_for('static', filename='img/back.png') }}" id="back">
+        <img src="{{ url_for('static', filename='img/back.png') }}"  onclick="history.back()" id="back">
         <h1 id="pageTitle">Grocery list</h1>
     </header>
     <!-- <div class="content">
@@ -64,7 +64,7 @@
                 {% endfor %}
 
                 <td>
-                        <a href="{{ url_for('gclist', id=row[0]) }}">Edit</a> / <a href="{{ url_for('deleteg', id=row[0]) }}">Delete</a>
+                        <a href="{{ url_for('gclist', id=row[0]) }}">View</a> / <a href="{{ url_for('deleteg', id=row[0]) }}">Delete</a>
                         
                 </td>
                 

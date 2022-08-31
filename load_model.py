@@ -1,7 +1,7 @@
 import joblib as jb
 
 
-filename = 'ml_modle.sav'
+filename = 'static/models/apple.sav'
 
 load_model = jb.load(filename)
 

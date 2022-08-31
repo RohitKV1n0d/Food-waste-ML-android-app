@@ -78,7 +78,7 @@ li{
 }
 .content{
     position: absolute;
-    top:30vh;
+    top:40vh;
     left:20vw;
     width: 60vw;
     height:50vh;
@@ -87,6 +87,7 @@ li{
     justify-content: space-evenly;
 }
 form{
+    
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;   
@@ -94,9 +95,32 @@ form{
 
 input{
     position: relative;
-    top:-10px;
+    top:0px;
     border: solid 1px gray;
     outline: none;
     padding: 10px;
     border-radius: 10px;
+}
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 1em;
+  }
+
+
+.message{
+    background-color: #FF5C00;
+    text-align: center;
+    padding: .3em;
+    border-color: black;
+    border-style: solid;
+    border-radius: 1em;
+    visibility: hidden;
 }

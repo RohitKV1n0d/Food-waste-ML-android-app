@@ -16,6 +16,7 @@ from wtforms import validators
 from wtforms.validators import InputRequired, Email, Length
 
 from flask_sqlalchemy import SQLAlchemy
+import string
 
 import joblib as jb
 import numpy as np
@@ -26,7 +27,7 @@ app.secret_key = 'asdaasdasdsdasdasasdasddasdasdasdaveasdaqvq34c'
 
 
 
-ENV = 'prod'
+ENV = 'dev'
 
 if ENV == 'dev' :
     app.debug = True
@@ -127,7 +128,7 @@ def load_user(user_id):
 class RegisterForm(FlaskForm):
     username = StringField('username', validators=[InputRequired('username is required'),Length(min=8,max=20) ])
     password = PasswordField('password', validators= [InputRequired(), Length(min=8, max=81, message=('8 letters!')) ])
-    submit = SubmitField("Regiseter")
+    submit = SubmitField("Register")
     
 class LoginForm(FlaskForm):
     username = StringField('username', validators=[InputRequired('username is required'),Length(min=8,max=20), ])
@@ -331,33 +332,35 @@ def deleteitem(id,agid):
     except:
         return "Somthing went wrong"
 
+
+@app.route('/predict/<int:fb>/<int:ppl>/<string:name>', methods = ['POST','GET'])
+def predict(fb,ppl,name):
+    fb = fb
+    ppl = ppl
+    name=name
+    filename = 'static/models/'+name.lower()+'.sav'
+
+    load_model = jb.load(filename)
+    res = load_model.predict([[fb,ppl]])
+    
+    return str(int(res))
+
 @app.route('/logout',methods = ["GET",'POST'])
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('login'))
 
-# if __name__=='__main__':
-#     app.run(debug=True,host='0.0.0.0',port=5000)
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run(debug=True,host='0.0.0.0',port=5000)
+# if __name__=='__main__':
+#     app.run(debug=True)
 
 
 
 
 
 
-# @app.route('/predict', methods = ['POST'])
-# def predict():
-#     fw = request.form.get('fw')
-#     ppl = request.form.get('ppl')
-    
-#     filename = 'ml_modle.sav'
 
-#     load_model = jb.load(filename)
-#     res = load_model.predict([[fw,ppl]])
-    
-
-#     return jsonify({'result':int(res)})
 
 

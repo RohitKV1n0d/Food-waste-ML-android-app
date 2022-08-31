@@ -10,11 +10,14 @@
 <body>
     <div class="backgroundCircle"></div>
     <header>
+        <a href="{{url_for('logout')}}">
+        <img src="{{ url_for('static', filename='img/logout.svg') }}" onclick="history.back()" class="logout" id="back" alt="Logout" >
+        </a><p style="font-size: smaller; margin-left: 10px;">Logout</p>
         <h1 id="pageTitle">HOME</h1>
     </header>
     
 
-    <nav role="navigation">
+    <!-- <nav role="navigation">
         <div id="menuToggle">
 
           <input type="checkbox" />
@@ -28,7 +31,7 @@
 
           </ul>
         </div>
-      </nav>
+      </nav> -->
 
 
 
