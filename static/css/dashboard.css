@@ -1,12 +1,16 @@
 *{
     margin: 0;
 }
+html, body {margin: 0; width: 100%; }
 .backgroundCircle{
-    position: absolute;
-    top:-75vh;
-    margin-left: -12em;
-    width: 50em;
-    height: 100vh;
+    position: fixed;
+   
+    
+    top:-35vh;
+    left: -25vw;
+
+    width: 150vw;
+    height: 60vh;
     border-radius: 50%;
     background-color: #FF5C00;
     z-index: -1;
@@ -26,7 +30,7 @@
     left:13vw;
     height: 50vh;
     width: 76vw;
-    background-color: palevioletred;
+    background-color: rgb(56, 105, 139);
     border-radius: 10px;
 
 }
@@ -41,6 +45,24 @@
   left: 11vw;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 11vh;
+}
+.viewm{
+  position: fixed;
+  padding: .2em;
+  width: 6em;
+  height: 2em;
+  margin-left: 10.5em;
+  margin-top: 5em;
+  background-color: bisque;
+  text-align: center;
+  border-radius: 4em;
+  font-weight: bolder;
+}
+
+.intContent{
+  font-size: x-large;
+  padding: .2em;
+  padding-left: 1em;
 }
 
 .icon{

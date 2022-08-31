@@ -1,17 +1,20 @@
 *{
     margin: 0;
 }
+html, body {margin: 0; width: 100%; }
 .backgroundCircle{
-    position: absolute;
-    top:-75vh;
-    margin-left: -12em;
-    width: 50em;
-    height: 100vh;
+    position: fixed;
+   
+    
+    top:-35vh;
+    left: -25vw;
+
+    width: 150vw;
+    height: 60vh;
     border-radius: 50%;
     background-color: #FF5C00;
     z-index: -1;
 }
-
 #pageTitle{
     position: relative;
     text-align: center;
