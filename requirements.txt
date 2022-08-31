@@ -18,6 +18,7 @@ numpy==1.22.3
 opencv-contrib-python==4.5.5.64
 opencv-python==4.5.5.64
 openpyxl==3.0.10
+psycopg2==2.9.3
 SQLAlchemy==1.4.39
 Werkzeug==2.1.2
 WTForms==3.0.1
