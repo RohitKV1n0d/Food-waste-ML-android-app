@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/grocery-wasted-list.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/report-wasted.css') }}">
     <title>Grocery wasted list</title>
 </head>
 <body>
@@ -14,28 +14,20 @@
         <h1 id="pageTitle">Grocery wasted list</h1>
     </header>
     <div class="content">
-        <table class="my_table">
-            <tr>
-              <th>Item</th>
-              <th>Quantity</th>
-              <th>Expiry</th>
-              <th>Action</th>
-            </tr>
-            {% for row in data %}
-            <tr>
-            
-            
-            {% for cell in row[1:4] %}
-                
-                <td>{{ cell }}</td>              
-            {% endfor %}
-                <td><a href="{{ url_for('repwasted', id=row[0]) }}">Report Waste</a></td>
-            </tr>
-            {% endfor %}
+        <div class="form">
+            <h3>Wasted Item : {{ glist.name }}</h3>
+            <form action="", method="post">
+                <div class="item">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" style="width: 20px;" name="quantity">
 
-
-     
-          </table>
+                    </select>
+                </div>
+                <div class="item">
+                    <input type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
         </div>
     </div>
     <footer>    

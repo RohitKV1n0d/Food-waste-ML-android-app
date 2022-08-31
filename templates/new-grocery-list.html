@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/new-grocery-list.css') }}">
     <title>New grocery list</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="backgroundCircle"></div>
@@ -16,22 +17,23 @@
     <div class="content">
         <div class="form">
             <form action="" method="post">
+               
                 <div class="item">
                     <label for="type">Type</label>
                     
                     <select name="type" id="type">
-                    <option value="0">Fruits</option>
-                    <option value="0">Vegetables </option>
-                    <option value="0">Meat</option>
-                    <option value="0">Dairy</option>
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="Fruits">Fruits</option>
+                    <option value="Vegetables">Vegetables </option>
+                    <option value="Meat">Meat</option>
+                    <option value="Dairy">Dairy</option>
                     </select>
                 </div>
                 <div class="item">
                     <label for="name">Name</label>
                     <select name="name" id="name">
-                    <option value="0">0</option>
-                    <option value="0">0</option>
-                    <option value="0">0</option>
+                        <option value="" disabled selected>Please select an option</option>
+
                     </select>
                 </div>
                 <div class="item">
@@ -42,29 +44,67 @@
                     <label for="members">Members</label>
                     <select name="members" id="members">
                         <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
                     </select>
                 </div>
                 <div class="item">
                     <label for="quantity">Quantity</label>
-                    <select name="quantity" id="quantity">
-                    <option value="0">0</option>
-                    <option value="0">0</option>
-                    <option value="0">0</option>
+                    <input type="number" style="width: 20px;" name="quantity">
+
+                    <label for="unit">Unit</label>
+                    <select name="unit" id="unit" style="position: 20px;">
+                        <option value="count">count</option>
+                        <option value="kg">kg</option>
+                        <option value="L">L</option>
+
                     </select>
                 </div>
+
+            
                 <div class="item">
                     <input type="submit" value="Submit">
                 </div>
             </form>
         </div>
     </div>
+    <script>
+        var lookup = {
+            'Fruits': ['Apple', 'Mango', 'Bannana'],
+            'Vegetables': ['Onion', 'Tomato','Broccoli'],
+            'Meat': ['Beef','Pork','Chicken'],
+            'Dairy': ['Milk','Yougurt','Curd']
+            };
+
+            // When an option is changed, search the above for matching choices
+            $('#type').on('change', function() {
+            // Set selected option as variable
+            var selectValue = $(this).val();
+
+            // Empty the target field
+            $('#name').empty();
+            
+            // For each chocie in the selected option
+            for (i = 0; i < lookup[selectValue].length; i++) {
+                // Output choice in the target field
+                $('#name').append("<option value='" + lookup[selectValue][i] + "'>" + lookup[selectValue][i] + "</option>");
+            }
+            });
+    </script>
+
+   
     <footer>    
         <nav id="bottomNav">
-            <a href="home"><img src="{{ url_for('static', filename='img/home.png') }}" class="icon" id="homeIcon" style="width:30px;height:30px;" ></a>      
-            <a href="glist"><img src="{{ url_for('static', filename='img/cart.png') }}" class="icon" id="cartIcon"  style="width:30px;height:30px;"></a>
-            <a href="newlist"><img src="{{ url_for('static', filename='img/add.png') }}" class="icon" id="addIcon"  style="width:30px;height:30px;"></a>
-            <a href="wasted"><img src="{{ url_for('static', filename='img/delete.png') }}" class="icon" id="deleteIcon"  style="width:30px;height:30px;"></a>
-            <a href="dash"><img src="{{ url_for('static', filename='img/graph.png') }}" class="icon" id="graphIcon"  style="width:30px;height:30px;"></a>
+            <a href="{{ url_for('home')}}"><img src="{{ url_for('static', filename='img/home.png') }}" class="icon" id="homeIcon" style="width:30px;height:30px;" ></a>      
+            <a href=" {{ url_for('glist')}}"><img src="{{ url_for('static', filename='img/cart.png') }}" class="icon" id="cartIcon"  style="width:30px;height:30px;"></a>
+            <a href="{{ url_for('newlist')}}"><img src="{{ url_for('static', filename='img/add.png') }}" class="icon" id="addIcon"  style="width:30px;height:30px;"></a>
+            <a href="{{ url_for('delete')}}"><img src="{{ url_for('static', filename='img/delete.png') }}" class="icon" id="deleteIcon"  style="width:30px;height:30px;"></a>
+            <a href="{{ url_for('dash')}}"><img src="{{ url_for('static', filename='img/graph.png') }}" class="icon" id="graphIcon"  style="width:30px;height:30px;"></a>
         </nav>
     </footer>
 </body>

@@ -1,6 +1,7 @@
 
 from enum import unique
 from math import frexp
+from datetime import date, datetime
 import os
 import re
 from urllib.response import addclosehook
@@ -64,7 +65,7 @@ class Users(db.Model, UserMixin):
 
     aglist = db.relationship('AllGrosseryLists', backref='aglist')
     fwlist = db.relationship('FoodWastedList', backref='fwlist')
-  #  glist1 = db.relationship('GrosseryList', backref='glist1')
+    glist1 = db.relationship('GrosseryList', backref='glist1')
 
 
 
@@ -86,9 +87,11 @@ class GrosseryList(db.Model):
     type = db.Column(db.String(30), nullable=False)
     name = db.Column(db.String(30), nullable=False)
     expirydate = db.Column(db.String(300), nullable=False)  
-    members = db.Column(db.Integer)
-    quantity = db.Column(db.Integer)
-    #creator_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    members = db.Column(db.Integer, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+    unit = db.Column(db.String(10), nullable=False)
+    ifwasted = db.Column(db.Boolean, default=False)
+    creator_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     agid = db.Column(db.Integer, db.ForeignKey('allgrosserylists.agid'))
 
 
@@ -101,7 +104,9 @@ class FoodWastedList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(30), nullable=False)
     name = db.Column(db.String(30), nullable=False)
-    quantity = db.Column(db.Integer)
+    fb = db.Column(db.Integer, nullable=False)
+    ppl = db.Column(db.Integer, nullable=False)
+    fw = db.Column(db.Integer)
     fw_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     
 
@@ -134,11 +139,33 @@ class LoginForm(FlaskForm):
     
 
 
+
+
 @app.route('/')
-@app.route('/home')
+@app.route('/home',methods = ["GET",'POST'])
 @login_required
 def home():
-    return render_template('home.html')
+    cid = current_user.id
+    today = date.today()
+    allglist = GrosseryList.query.filter_by(creator_id=cid).order_by(GrosseryList.expirydate).all()
+    cdata=()
+    l1=[]
+
+    for i in allglist:
+        fdate = i.expirydate
+        y =int(fdate[0:4])
+        m = int(fdate[5:7])
+        d =int(fdate[8:10])
+        future = date(y,m,d)
+        diff = future - today
+        days = diff.days
+        if days < 5:
+            daysleft = str(days)+" Days Left"
+            cdata=()
+            cdata=(i.name,'-',daysleft)
+            l1.append(cdata)
+    
+    return render_template('home.html',data=l1)
 
 
 @app.route('/signup',methods = ["GET",'POST'])
@@ -177,44 +204,132 @@ def login():
     return render_template('login.html',form=form)
 
 
-@app.route('/newlist', methods = ["GET",'POST'])
+@app.route('/newitem/<int:agid>', methods = ["GET",'POST'])
 @login_required
-def shop1():
+def newitem(agid):
     if request.method == 'POST':
+        agid = agid
         cid = current_user.id
-        addlist = GrosseryList(type=request.form['type'],name=request.form['name'],expirydate=request.form.get('exdate'),members=int(request.form['members']),quantity=int(request.form['quantity']),list_id=cid )
+        addlist = GrosseryList(type=request.form['type'], name=request.form['name'], expirydate=request.form.get('exdate'),
+                                members=int(request.form['members']), quantity=int(request.form['quantity']), unit=request.form['unit'],
+                                agid=agid, creator_id=cid )
         db.session.add(addlist)
         db.session.commit()
-        return redirect(url_for('gclist'))
+        
+        return redirect(url_for('gclist',id=agid))
     return render_template('new-grocery-list.html')
 
 
 @app.route('/newlist', methods = ["GET",'POST'])
 @login_required
 def newlist():
-  
+    
+    if request.method == 'POST':
+        cid = current_user.id
+        today = date.today()
+        addnewlistname = AllGrosseryLists(name=request.form['name'] ,date=today.strftime("%d/%m/%Y") ,alllist_id=cid )
+        db.session.add(addnewlistname)
+        db.session.commit()
+        return redirect(url_for('glist'))
+
     return render_template('new-list.html')
 
-@app.route('/glist')
+@app.route('/glist',methods = ["GET",'POST'])
 @login_required
 def glist():
-    return render_template('grocery-list.html')
+    cid = current_user.id
+    list_data = AllGrosseryLists.query.filter_by(alllist_id=cid).all()
+    cdata=()
+    l1=[]
+    for i in list_data:
+        cdata=()
+        cdata=(i.agid,i.name,i.date)
+        l1.append(cdata)
+    print(l1)
+    return render_template('grocery-list.html',data=l1)
 
-@app.route('/gclist')
+@app.route('/gclist/<int:id>',methods = ["GET",'POST'])
 @login_required
-def gclist():
-    return render_template('grocery-checklist.html')
+def gclist(id):
+    gid=id
+    list_data= GrosseryList.query.filter_by(agid=id).all()
+    cdata=()
+    l1=[]
+    for i in list_data:
+        cdata=()
+        cdata=(i.gid,i.name,i.quantity,i.unit)
+        l1.append(cdata)
+    return render_template('grocery-checklist.html',id=id,data=l1,i=1)
 
 
 @app.route('/wasted')
 @login_required
 def delete():
-    return render_template('grocery-wasted-list.html')
+    cid = current_user.id
+    today = date.today()
+    allglist = GrosseryList.query.filter_by(creator_id=cid).order_by(GrosseryList.expirydate).all()
+    cdata=()
+    l1=[]
+
+    for i in allglist:
+        fdate = i.expirydate
+        y =int(fdate[0:4])
+        m = int(fdate[5:7])
+        d =int(fdate[8:10])
+        future = date(y,m,d)
+        diff = future - today
+        days = diff.days
+        daysleft = str(days)+" Days Left"
+        cdata=()
+        if i.ifwasted == False:
+            cdata=(i.gid,i.name,i.quantity,daysleft)
+            l1.append(cdata)
+
+    return render_template('grocery-wasted-list.html',data=l1)
 
 @app.route('/dash')
 @login_required
 def dash():
     return render_template('dashboard.html')
+
+
+@app.route('/repwasted/<int:id>', methods=['POST','GET'])
+@login_required
+def repwasted(id):
+    glist = GrosseryList.query.filter_by(gid=id).first()
+    if request.method == 'POST':
+        cid=current_user.id
+        addWasted = FoodWastedList(type=glist.type, name=glist.name ,fb=glist.quantity,
+                                     ppl=glist.members, fw=request.form['quantity'], fw_id=cid)
+        db.session.add(addWasted)
+        
+        # addwated2 = GrosseryList(ifwasted=True)
+        glist.ifwasted=True
+        db.session.commit()
+        return redirect(url_for('delete'))
+
+    return render_template('report-wasted.html',glist=glist) 
+
+@app.route('/delete/<int:id>', methods=['POST','GET'])
+@login_required
+def deleteg(id):
+    to_delete = AllGrosseryLists.query.get_or_404(id)
+    try:
+        db.session.delete(to_delete)
+        db.session.commit()
+        return redirect(url_for('glist'))
+    except:
+        return "Somthing went wrong"
+
+@app.route('/deleteitem/<int:id>/<int:agid>', methods=['POST','GET'])
+def deleteitem(id,agid):
+    to_delete = GrosseryList.query.get_or_404(id)
+    try:
+        db.session.delete(to_delete)
+        db.session.commit()
+        return redirect(url_for('gclist',id=id,agid=agid))
+    except:
+        return "Somthing went wrong"
 
 @app.route('/logout',methods = ["GET",'POST'])
 @login_required

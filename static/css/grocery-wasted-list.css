@@ -76,7 +76,7 @@ li{
 .content{
     position: absolute;
     top:30vh;
-    left:20vw;
+    left:10vw;
     width: 60vw;
     height:50vh;
     display: flex;
@@ -97,3 +97,23 @@ input{
     padding: 10px;
     border-radius: 10px;
 }
+
+table {
+    border-collapse: collapse;
+  }
+   th {
+    background: #ccc;
+  }
+  
+  th, td {
+    border: 1px solid #ccc;
+    padding: 12px;
+  }
+  
+  tr:nth-child(even) {
+    background: #efefef;
+  }
+  
+  tr:hover {
+    background: #d1d1d1;
+  }

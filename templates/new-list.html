@@ -15,7 +15,7 @@
     </header>
     <div class="content">
         <div class="form">
-            <form action="gclist" method="post">
+            <form action="" method="post">
 
                 <div class="item">
                     <label for="name">Name</label>
@@ -29,11 +29,11 @@
     </div>
     <footer>    
         <nav id="bottomNav">
-            <a href="home"><img src="{{ url_for('static', filename='img/home.png') }}" class="icon" id="homeIcon" style="width:30px;height:30px;" ></a>      
-            <a href="glist"><img src="{{ url_for('static', filename='img/cart.png') }}" class="icon" id="cartIcon"  style="width:30px;height:30px;"></a>
-            <a href="newlist"><img src="{{ url_for('static', filename='img/add.png') }}" class="icon" id="addIcon"  style="width:30px;height:30px;"></a>
-            <a href="wasted"><img src="{{ url_for('static', filename='img/delete.png') }}" class="icon" id="deleteIcon"  style="width:30px;height:30px;"></a>
-            <a href="dash"><img src="{{ url_for('static', filename='img/graph.png') }}" class="icon" id="graphIcon"  style="width:30px;height:30px;"></a>
+            <a href="{{ url_for('home')}}"><img src="{{ url_for('static', filename='img/home.png') }}" class="icon" id="homeIcon" style="width:30px;height:30px;" ></a>      
+            <a href=" {{ url_for('glist')}}"><img src="{{ url_for('static', filename='img/cart.png') }}" class="icon" id="cartIcon"  style="width:30px;height:30px;"></a>
+            <a href="{{ url_for('newlist')}}"><img src="{{ url_for('static', filename='img/add.png') }}" class="icon" id="addIcon"  style="width:30px;height:30px;"></a>
+            <a href="{{ url_for('delete')}}"><img src="{{ url_for('static', filename='img/delete.png') }}" class="icon" id="deleteIcon"  style="width:30px;height:30px;"></a>
+            <a href="{{ url_for('dash')}}"><img src="{{ url_for('static', filename='img/graph.png') }}" class="icon" id="graphIcon"  style="width:30px;height:30px;"></a>
         </nav>
     </footer>
 </body>

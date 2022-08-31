@@ -14,7 +14,7 @@
         <h1 id="pageTitle">Grocery checklist</h1>
     </header>
     <div class="content">
-        <div id="checkListContainer">
+        <!-- <div id="checkListContainer">
             <ol class="checklist">
                 <ul class="heading">
                     <li>#</li>
@@ -40,15 +40,51 @@
                     <li><input type="checkbox" name="" id=""></li>
                 </ul>
             </ol>
-        </div>
+        </div> -->
+        <table class="my_table">
+            <tr>
+              
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Unit</th>
+              <th>chkbox</th>
+              <th>Action</th>
+            </tr>
+          
+            
+            {% for row in data %}
+            <tr>
+                
+                
+                {% for cell in row[1:4] %}
+                    
+                    <td>{{ cell }}</td>               
+                {% endfor %}
+
+                <td>
+                        <!-- <a href="">Edit</a> / <a href="">Delete</a> -->
+                        <input type="checkbox" name="" id="" >
+                        
+                        
+                </td>
+
+                <td>
+                    <a href="{{ url_for('deleteitem', id=row[0],agid=id) }}">Delete</a>
+                </td>
+                
+            </tr>
+            {% endfor %}
+
+          </table>
+          <h3><a href="{{ url_for('newitem',agid=id)}}" class="button">Add More Items</a></h3>
     </div>
     <footer>
         <nav id="bottomNav">
-            <a href="home"><img src="{{ url_for('static', filename='img/home.png') }}" class="icon" id="homeIcon" style="width:30px;height:30px;" ></a>      
-            <a href="glist"><img src="{{ url_for('static', filename='img/cart.png') }}" class="icon" id="cartIcon"  style="width:30px;height:30px;"></a>
-            <a href="newlist"><img src="{{ url_for('static', filename='img/add.png') }}" class="icon" id="addIcon"  style="width:30px;height:30px;"></a>
-            <a href="wasted"><img src="{{ url_for('static', filename='img/delete.png') }}" class="icon" id="deleteIcon"  style="width:30px;height:30px;"></a>
-            <a href="dash"><img src="{{ url_for('static', filename='img/graph.png') }}" class="icon" id="graphIcon"  style="width:30px;height:30px;"></a>
+            <a href="{{ url_for('home')}}"><img src="{{ url_for('static', filename='img/home.png') }}" class="icon" id="homeIcon" style="width:30px;height:30px;" ></a>      
+            <a href=" {{ url_for('glist')}}"><img src="{{ url_for('static', filename='img/cart.png') }}" class="icon" id="cartIcon"  style="width:30px;height:30px;"></a>
+            <a href="{{ url_for('newlist')}}"><img src="{{ url_for('static', filename='img/add.png') }}" class="icon" id="addIcon"  style="width:30px;height:30px;"></a>
+            <a href="{{ url_for('delete')}}"><img src="{{ url_for('static', filename='img/delete.png') }}" class="icon" id="deleteIcon"  style="width:30px;height:30px;"></a>
+            <a href="{{ url_for('dash')}}"><img src="{{ url_for('static', filename='img/graph.png') }}" class="icon" id="graphIcon"  style="width:30px;height:30px;"></a>
         </nav>
     </footer>
 </body>
