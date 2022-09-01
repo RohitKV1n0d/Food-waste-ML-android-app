@@ -187,7 +187,7 @@ def signup():
         db.session.add(addUser)
         db.session.commit()
         return redirect(url_for('login'))
-    return render_template('signup.html',form=form)
+    return render_template('signUp.html',form=form)
 
 
         
