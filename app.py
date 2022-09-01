@@ -126,13 +126,13 @@ def load_user(user_id):
 
 
 class RegisterForm(FlaskForm):
-    username = StringField('username', validators=[InputRequired('username is required'),Length(min=8,max=20) ])
-    password = PasswordField('password', validators= [InputRequired(), Length(min=8, max=81, message=('8 letters!')) ])
+    username = StringField('username', validators=[InputRequired('username is required'),Length(min=3,max=20) ])
+    password = PasswordField('password', validators= [InputRequired(), Length(min=6, max=81, message=('8 letters!')) ])
     submit = SubmitField("Register")
     
 class LoginForm(FlaskForm):
-    username = StringField('username', validators=[InputRequired('username is required'),Length(min=8,max=20), ])
-    password = PasswordField('password', validators= [InputRequired(), Length(min=8, max=81, message=('8 letters!')) ])
+    username = StringField('username', validators=[InputRequired('username is required'),Length(min=3,max=20), ])
+    password = PasswordField('password', validators= [InputRequired(), Length(min=6, max=81, message=('8 letters!')) ])
     submit = SubmitField("Login")
 
 
