@@ -108,11 +108,12 @@ class FoodWastedList(db.Model):
     fb = db.Column(db.Integer, nullable=False)
     ppl = db.Column(db.Integer, nullable=False)
     fw = db.Column(db.Integer)
+    unit = db.Column(db.String(10), nullable=False)
+    exdate = db.Column(db.String(300), nullable=False)  
+
     fw_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     
-
-
-
+ 
 
 
 
@@ -160,7 +161,7 @@ def home():
         future = date(y,m,d)
         diff = future - today
         days = diff.days
-        if days < 5:
+        if days < 5 and i.ifwasted == False:
             daysleft = str(days)+" Days Left"
             cdata=()
             cdata=(i.name,'-',daysleft)
@@ -293,23 +294,24 @@ def delete():
 def wastedlist():
     cid = current_user.id
     today = date.today()
-    allglist = GrosseryList.query.filter_by(creator_id=cid).order_by(GrosseryList.expirydate).all()
+    allglist = GrosseryList.query.filter_by(creator_id=cid)
+    wastedlist = FoodWastedList.query.filter_by(fw_id=cid).order_by(FoodWastedList.exdate).all()
     cdata=()
     l1=[]
 
-    for i in allglist:
-        fdate = i.expirydate
+    for i in wastedlist:
+        fdate = i.exdate
         y =int(fdate[0:4])
         m = int(fdate[5:7])
         d =int(fdate[8:10])
         future = date(y,m,d)
         diff = future - today
         days = diff.days
-        daysleft = str(days)+" Days Left"
+        # daysleft = str(days)+" Days Left"
         cdata=()
-        if i.ifwasted == True:
-            cdata=(i.gid,i.name,i.quantity,fdate)
-            l1.append(cdata)
+        #if i.ifwasted == True:
+        cdata=(i.id,i.name,i.fw,i.unit,fdate)
+        l1.append(cdata)
 
     return render_template('wasted-list.html',data=l1)
 
@@ -326,7 +328,8 @@ def repwasted(id):
     if request.method == 'POST':
         cid=current_user.id
         addWasted = FoodWastedList(type=glist.type, name=glist.name ,fb=glist.quantity,
-                                     ppl=glist.members, fw=request.form['quantity'], fw_id=cid)
+                                        ppl=glist.members, fw=request.form['quantity'],
+                                        unit=glist.unit,exdate=glist.expirydate, fw_id=cid)
         db.session.add(addWasted)
         
         # addwated2 = GrosseryList(ifwasted=True)
@@ -349,11 +352,11 @@ def deleteg(id):
 
 @app.route('/deleteitem/<int:id>/<int:agid>', methods=['POST','GET'])
 def deleteitem(id,agid):
-    to_delete = GrosseryList.query.get_or_404(id)
+    to_delete = GrosseryList.query.filter_by(gid=id).first()
     try:
         db.session.delete(to_delete)
         db.session.commit()
-        return redirect(url_for('gclist',id=id,agid=agid))
+        return redirect(url_for('gclist',id=agid))
     except:
         return "Somthing went wrong"
 

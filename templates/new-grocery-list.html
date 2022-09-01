@@ -99,7 +99,7 @@
             let msgbody = document.getElementById("msgbody");
             let m = "Based on you grocery usage data,we reccomend you get "
                         
-            msgbody.innerHTML = m.concat("<strong>",delata,"</strong> amount of <strong>",name,"</strong>")
+            msgbody.innerHTML = m.concat("<strong>",delata," ",document.getElementById("unit").value,"</strong> amount of <strong>",name,"</strong>")
             console.log("done")
 
                 }

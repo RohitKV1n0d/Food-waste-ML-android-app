@@ -11,7 +11,7 @@
     <div class="backgroundCircle"></div>
     <header>
         <img src="{{ url_for('static', filename='img/back.png') }}" onclick="history.back()"  id="back">
-        <h1 id="pageTitle">Grocery checklist</h1>
+        <h1 id="pageTitle">Grocery Cart</h1>
     </header>
     <div class="content">
         <!-- <div id="checkListContainer">
@@ -70,7 +70,7 @@
 
                 <td>
                     <a href="{{ url_for('deleteitem', id=row[0],agid=id) }}">Delete</a>
-                </td>
+                </td> 
                 
             </tr>
             {% endfor %}

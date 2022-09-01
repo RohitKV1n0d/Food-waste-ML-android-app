@@ -5,20 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/report-wasted.css') }}">
-    <title>Grocery wasted list</title>
+    <title>Report Wasted Quantity</title>
 </head>
 <body>
     <div class="backgroundCircle"></div>
     <header>
         <img src="{{ url_for('static', filename='img/back.png') }}"  onclick="history.back()"  id="back">
-        <h1 id="pageTitle">Grocery wasted list</h1>
+        <h1 id="pageTitle">Report Wasted Quantity</h1>
     </header>
     <div class="content">
         <div class="form">
-            <h3>Wasted Item : {{ glist.name }}</h3>
+            <h3>Wasted Item : {{ glist.name }} (Bought Quantity: {{ glist.quantity}} {{ glist.unit }} )</h3>
             <form action="", method="post">
                 <div class="item">
-                    <label for="quantity">Quantity</label>
+                    <label for="quantity">Quantity ({{ glist.unit }})</label>
                     <input type="number" style="width: 20px;" name="quantity">
 
                     </select>
