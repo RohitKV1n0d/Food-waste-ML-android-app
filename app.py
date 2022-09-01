@@ -288,6 +288,31 @@ def delete():
 
     return render_template('grocery-wasted-list.html',data=l1)
 
+@app.route('/wastedlist')
+@login_required
+def wastedlist():
+    cid = current_user.id
+    today = date.today()
+    allglist = GrosseryList.query.filter_by(creator_id=cid).order_by(GrosseryList.expirydate).all()
+    cdata=()
+    l1=[]
+
+    for i in allglist:
+        fdate = i.expirydate
+        y =int(fdate[0:4])
+        m = int(fdate[5:7])
+        d =int(fdate[8:10])
+        future = date(y,m,d)
+        diff = future - today
+        days = diff.days
+        daysleft = str(days)+" Days Left"
+        cdata=()
+        if i.ifwasted == True:
+            cdata=(i.gid,i.name,i.quantity,fdate)
+            l1.append(cdata)
+
+    return render_template('wasted-list.html',data=l1)
+
 @app.route('/dash')
 @login_required
 def dash():

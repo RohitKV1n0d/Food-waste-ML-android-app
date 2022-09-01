@@ -55,17 +55,22 @@ html, body {margin: 0; width: 100%; }
   border-radius: 11vh;
 }
 .viewm{
-  position: fixed;
+  position: absolute;
   padding: .2em;
   width: 6em;
-  height: 2em;
-  margin-left: 10.5em;
-  margin-top: 5em;
+  height: 1em;
+  margin-left: 3.5em;
+  margin-top: 8em;
   background-color: bisque;
   text-align: center;
   border-radius: 4em;
+  font-size: .7em;
   font-weight: bolder;
 }
+a:link { text-decoration: none; }
+a:hover {
+    color: hotpink;
+  }
 
 .intContent{
   font-size: x-large;

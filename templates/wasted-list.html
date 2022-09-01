@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/wasted-list.css') }}">
+    <title>Wasted list</title>
+</head>
+<body>
+    <div class="backgroundCircle"></div>
+    <header>
+        <img src="{{ url_for('static', filename='img/back.png') }}"  onclick="history.back()"  id="back">
+        <h1 id="pageTitle">Grocery wasted list</h1>
+    </header>
+    <div class="content">
+        <table class="my_table">
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Expiry</th>
+              
+            </tr>
+            {% for row in data %}
+            <tr>
+            
+            
+            {% for cell in row[1:4] %}
+                
+                <td>{{ cell }}</td>              
+            {% endfor %}
+                
+            </tr>
+            {% endfor %}
+
+
+     
+          </table>
+        </div>
+    </div>
+    <footer>    
+        <nav id="bottomNav">
+            <a href="{{ url_for('home')}}"><img src="{{ url_for('static', filename='img/home.png') }}" class="icon" id="homeIcon" style="width:30px;height:30px;" ></a>      
+            <a href=" {{ url_for('glist')}}"><img src="{{ url_for('static', filename='img/cart.png') }}" class="icon" id="cartIcon"  style="width:30px;height:30px;"></a>
+            <a href="{{ url_for('newlist')}}"><img src="{{ url_for('static', filename='img/add.png') }}" class="icon" id="addIcon"  style="width:30px;height:30px;"></a>
+            <a href="{{ url_for('delete')}}"><img src="{{ url_for('static', filename='img/delete.png') }}" class="icon" id="deleteIcon"  style="width:30px;height:30px;"></a>
+            <a href="{{ url_for('dash')}}"><img src="{{ url_for('static', filename='img/graph.png') }}" class="icon" id="graphIcon"  style="width:30px;height:30px;"></a>
+        </nav>
+    </footer>
+</body>
+</html>
