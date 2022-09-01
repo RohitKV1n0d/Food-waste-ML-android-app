@@ -26,7 +26,7 @@ html, body {margin: 0; width: 100%; }
 .recentlyCreated{
     position: absolute;
     top:29vh;
-    left:13vw;
+    left:9vw;
     height: 50vh;
     width: 76vw;
     
@@ -60,7 +60,7 @@ html, body {margin: 0; width: 100%; }
     position: relative;
     height: 40%;
     width: 10%;
-    top: 30%;
+    top: 30%; 
 }
 #addIcon{
     transform: scale(2);
